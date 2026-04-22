@@ -22,27 +22,27 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('users', function (Blueprint $table) {
-      // Chave primária UUID
       $table->uuid('id')->primary();
 
-      // Dados básicos do usuário
+      // Basic user information
       $table->string('name');
       $table->string('email')->unique();
       $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
 
-      // Papel do usuário no sistema: admin | customer
+      // User role in the system: admin | customer
       $table->enum('role', ['admin', 'customer'])->default('customer');
 
-      // Telefone opcional para contato
+      // Optional phone number for contact
       $table->string('phone', 20)->nullable();
 
-      // Token para lembrar sessão
+      // Token used to remember user sessions
       $table->rememberToken();
 
-      // Soft-delete lógico: true = registro inativo/deletado
+      // Logical soft delete flag: true = inactive/deleted record
       $table->boolean('is_deleted')->default(false);
 
+      // Created_at and updated_at timestamps
       $table->timestamps();
     });
   }
